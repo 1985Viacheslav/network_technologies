@@ -1,0 +1,11 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: nginx-html-config
+data:
+  index.html: |
+    <html>
+      <body>
+        <h1>Hi, it's my first deploy in Kubernetes!</h1>
+      </body>
+    </html>

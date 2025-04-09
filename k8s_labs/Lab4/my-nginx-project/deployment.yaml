@@ -1,0 +1,33 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: nginx-deployment
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: nginx
+  template:
+    metadata:
+      labels:
+        app: nginx
+    spec:
+      containers:
+      - name: nginx
+        image: my-nginx:v1 # Замени на имя твоего локального образа
+        ports:
+        - containerPort: 80
+        resources:
+          requests:
+            memory: "64Mi"   # Запрашиваемая память
+            cpu: "250m"      # Запрашиваемый CPU (250 милли-CPU)
+          limits:
+            memory: "128Mi"  # Максимальная память
+            cpu: "500m"      # Максимальный CPU (500 милли-CPU)
+        volumeMounts:
+        - name: nginx-html
+          mountPath: /usr/share/nginx/html
+      volumes:
+      - name: nginx-html
+        configMap:
+          name: nginx-html-config
